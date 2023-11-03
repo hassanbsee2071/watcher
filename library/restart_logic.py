@@ -10,10 +10,12 @@ import os
 load_dotenv()
 
 #config.load_kube_config()
-KUBECONFIG = os.getenv('KUBECONFIG')
-profile = print(f"config.{KUBECONFIG}")
 
-profile
+try:
+    config.load_kube_config()
+except:
+    config.load_incluster_config()
+    
 v1 = client.CoreV1Api()
 k8s_resources = client.AppsV1Api()
 cusotom_resource = client.CustomObjectsApi()
