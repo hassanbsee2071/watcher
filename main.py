@@ -35,3 +35,8 @@ if sealed_secret_existence == "True":
     sealed_secrets_thread.start()
 else:
    print ("Sealed Secret Does Not Exists")
+
+
+
+print_ignored_namespace_thread = threading.Thread(target=watch_respurces.print_ignore_namespace)
+print_ignored_namespace_thread.start()

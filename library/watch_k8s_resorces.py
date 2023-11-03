@@ -21,6 +21,7 @@ ignore_configmap_namespace = os.getenv('IGNORE_CONFIGMAP_NAMESPACES')
 IGNORE_CONFIGMAP_NAMESPACES = ignore_configmap_namespace.split(",")
 ignore_secret_namespace = os.getenv('IGNORE_SECRET_NAMESPACES')
 IGNORE_SECRET_NAMESPACES = ignore_secret_namespace.split(",")
+PRINT_TIME = int(os.getenv('PRINT_TIME'))
 
 redis_connector = RedisConnector()
 restart_resources = RestartResources()
@@ -35,7 +36,8 @@ class WatchResources:
             for event in w.stream(v1.list_config_map_for_all_namespaces):
                 if event["type"] == "MODIFIED":
                     if event['object'].metadata.namespace in IGNORE_CONFIGMAP_NAMESPACES:
-                        print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("CONFIGMAP", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
+                        #print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("CONFIGMAP", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
+                        pass
                         # time.sleep(2)
                         # raise Exception("Oh oh, this script just died")
                     if event['object'].metadata.namespace not in IGNORE_CONFIGMAP_NAMESPACES:
@@ -70,7 +72,8 @@ class WatchResources:
             for event in w.stream(v1.list_secret_for_all_namespaces):
                 if event["type"] == "MODIFIED":
                     if event['object'].metadata.namespace in IGNORE_SECRET_NAMESPACES:
-                        print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
+                        #print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
+                        pass
                     if event['object'].metadata.namespace not in IGNORE_SECRET_NAMESPACES:
                         print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "PROCESSING"))
                         namespace = event['object'].metadata.namespace
@@ -117,3 +120,14 @@ class WatchResources:
             print(f"Exception occurred: {e}")
             time.sleep(1)
             os.execv(sys.executable, ['python3'] + sys.argv)
+
+
+
+    def print_ignore_namespace(self):
+        
+        
+        for namespace in IGNORE_CONFIGMAP_NAMESPACES:
+            print("RESOURCE: %s, NAMESPACE: %s, STATUS: %s" % ("CONFIGMAP", namespace,"IGNORED"))
+        for namespace in IGNORE_SECRET_NAMESPACES:
+            print("RESOURCE: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", namespace,"IGNORED"))
+        time.sleep(PRINT_TIME)

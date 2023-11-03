@@ -37,7 +37,7 @@ class RestartLogic():
                     if re.search(resource, str(item)):
                         print("Deployment Name is:", item.metadata.name)
                         
-                        DEPLOYMENT_FLAG = True
+                        DEPLOYMENT_FLAG = "True"
                         deployment=item.metadata.name
                         restart_resources.restart_deployment(k8s_resources, deployment, namespace,resource)
                     elif not re.search(resource, str(item)):
@@ -49,11 +49,11 @@ class RestartLogic():
                     
             except Exception as e:
                 print(f"Exception occurred: {e}")
-                print("Could Not Find Annotaions......")
+                print("Could Not Find Annotations......")
         if count == total_item:
             print (f"Resource {resource} Does Not Exist In Any Deployment In {namespace} Namespace")
             #redis_connector.unlock_resource(resource)
-            DEPLOYMENT_FLAG = False
+            DEPLOYMENT_FLAG = "False"
 
     def statefulset_logic(self, all_statefulset, resource, namespace):
         global STATEFULSET_FLAG
@@ -66,7 +66,7 @@ class RestartLogic():
                 if require_restart != "false":
                     if re.search(resource, str(item)):
             
-                        STATEFULSET_FLAG = True
+                        STATEFULSET_FLAG = "True"
                         print("StatefulSet Name is:", item.metadata.name)
                         stateful = item.metadata.name
                         restart_resources.restart_statefulset(k8s_resources, stateful, namespace,resource)
@@ -82,7 +82,7 @@ class RestartLogic():
         if count == total_item:
             print (f"Resource {resource} Does Not Exist In Any StateFulset In {namespace} Namespace")
             #redis_connector.unlock_resource(resource)
-            STATEFULSET_FLAG = False
+            STATEFULSET_FLAG = "False"
     
     def daemonset_logic(self, all_daemonset, resource, namespace):
         global DAEMONSET_FLAG
@@ -96,7 +96,7 @@ class RestartLogic():
 
                     if re.search(resource, str(item)):
                    
-                        DAEMONSET_FLAG = True
+                        DAEMONSET_FLAG = "True"
                         print("DaemonSet Name is:", item.metadata.name)
                         daemonset = item.metadata.name
                         restart_resources.restart_daemonset(k8s_resources, daemonset, namespace,resource)
@@ -111,11 +111,16 @@ class RestartLogic():
                 print("Could Not Find Annotaions......")
         if count == total_item:
             print (f"Resource {resource} Does Not Exist In Any DaemonSet In {namespace} Namespace")
-            DAEMONSET_FLAG = False
+            DAEMONSET_FLAG = "False"
 
     def resource_unlocking(self,resource):
             #if DEPLOYMENT_FLAG and STATEFULSET_FLAG and DAEMONSET_FLAG == False:
-            if not (DEPLOYMENT_FLAG and STATEFULSET_FLAG and DAEMONSET_FLAG):
+            if DEPLOYMENT_FLAG == "False" and STATEFULSET_FLAG == "False" and DAEMONSET_FLAG == "False":
+              print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
               redis_connector.unlock_resource(resource)
+            
+            elif DEPLOYMENT_FLAG == "True" or STATEFULSET_FLAG == "True" or DAEMONSET_FLAG == "True":
+               print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
             else:
-                print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
+                print ("Something Went Wrong")
+                
