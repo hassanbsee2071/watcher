@@ -20,7 +20,7 @@ LOCAL_CONFIG = os.getenv("LOCAL_CONFIG")
 
 if LOCAL_CONFIG == "True":
     config.load_kube_config()
-elif LOCAL_CONFIG == "FALSE":
+elif LOCAL_CONFIG == "False":
     config.load_incluster_config()
 
 v1 = client.CoreV1Api()
