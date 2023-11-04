@@ -11,12 +11,17 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-#config.load_kube_config()
-config.load_incluster_config()
-# try:
-#  config.load_kube_config()
-# except:
-#  config.load_incluster_config()
+# #config.load_kube_config()
+# config.load_incluster_config()
+# # try:
+# #  config.load_kube_config()
+# # except:
+# #  config.load_incluster_config()
+LOCAL_CONFIG = os.getenv("LOCAL_CONFIG")
+if LOCAL_CONFIG == "True":
+    config.load_kube_config()
+elif LOCAL_CONFIG == "FALSE":
+    config.load_incluster_config()
 
 
 v1 = client.CoreV1Api()
