@@ -16,6 +16,17 @@ redis_connector.redis_connectivity()
 
 config_map_thread = threading.Thread(target=watch_respurces.watch_configmap)
 config_map_thread.start()
+# last_resource_version = watch_respurces.list_pods()
+# print('last_resource_version', last_resource_version)
+
+
+
+# watch_respurces.list_pods(last_resource_version)
+# config_map_thread = threading.Thread(target=watch_respurces.list_pods(last_resource_version))
+# config_map_thread.start()
+
+
+
 
 
 secrets_thread = threading.Thread(target=watch_respurces.watch_secrets)
@@ -38,5 +49,9 @@ else:
 
 
 
+
 print_ignored_namespace_thread = threading.Thread(target=watch_respurces.print_ignore_namespace)
 print_ignored_namespace_thread.start()
+
+redis_connectivity_checker = threading.Thread(target=redis_connector.redis_connectivity_checker)
+redis_connectivity_checker.start()
