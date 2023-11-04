@@ -10,11 +10,11 @@ import os
 load_dotenv()
 
 #config.load_kube_config()
-
-try:
-    config.load_kube_config()
-except:
-    config.load_incluster_config()
+config.load_incluster_config()
+# try:
+#     config.load_kube_config()
+# except:
+#     config.load_incluster_config()
 
 v1 = client.CoreV1Api()
 k8s_resources = client.AppsV1Api()

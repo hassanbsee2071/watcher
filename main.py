@@ -53,5 +53,5 @@ else:
 print_ignored_namespace_thread = threading.Thread(target=watch_respurces.print_ignore_namespace)
 print_ignored_namespace_thread.start()
 
-redis_connectivity_checker = threading.Thread(target=redis_connector.redis_connectivity_checker)
-redis_connectivity_checker.start()
+# redis_connectivity_checker = threading.Thread(target=redis_connector.redis_connectivity_checker)
+# redis_connectivity_checker.start()
