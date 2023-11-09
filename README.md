@@ -47,6 +47,18 @@ We leverage a Jenkins job to facilitate the creation, updating, and deletion of 
 ![](diagram.png)
 
 
+**How To Deploy:**
+
+kubectl create ns watcher
+
+git clone https://github.com/hassanbsee2071/watcher.git
+
+cd watcher/redis\_cluster/
+
+kubectl apply -f .
+
+kubectl apply -f ../manifest.yaml
+
 
 |**Key** |**Description**|**Defaut**|
 | :- | :- | :- |
