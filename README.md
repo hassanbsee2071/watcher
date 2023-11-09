@@ -61,7 +61,7 @@ kubectl apply -f ../manifest.yaml
 
 
 
-### **Environment Variables:**
+### Environment Variables:
 
 
 |**Key** |**Description**|**Defaut**|
