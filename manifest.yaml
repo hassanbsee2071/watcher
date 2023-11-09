@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: controller
-  namespace: default
+  namespace: watcher
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -33,7 +33,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: controller  
-  namespace: default 
+  namespace: watcher 
 roleRef:
   kind: ClusterRole
   name: cluster-secret-configmap-manager 
@@ -44,7 +44,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-controller
-  namespace: default
+  namespace: watcher
   labels:
     app: python-controller
 spec:
@@ -60,7 +60,7 @@ spec:
       serviceAccountName: controller
       containers:
         - name: python-controller
-          image: hassanbsee2071/controller:v2
+          image: hassanbsee2071/controller:v3
           imagePullPolicy: Always
           env:
             - name: REDIS_HOST
