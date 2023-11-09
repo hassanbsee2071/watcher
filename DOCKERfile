@@ -10,5 +10,4 @@ RUN ls -l ./library
 RUN pwd
 RUN chmod u+x main.py
 RUN python3 --version
-#CMD ["python3 main.py"]
 CMD ["python3", "./main.py"]
