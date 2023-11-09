@@ -60,6 +60,10 @@ kubectl apply -f .
 kubectl apply -f ../manifest.yaml
 
 
+
+**Environment:**
+
+
 |**Key** |**Description**|**Defaut**|
 | :- | :- | :- |
 |REDIS\_HOST|Redis Host|"redis-stack-0.redis-service.watcher.svc.cluster.local"|
