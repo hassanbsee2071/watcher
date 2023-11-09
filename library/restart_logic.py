@@ -57,6 +57,7 @@ class RestartLogic():
                         #print (f"DEPLOYMENT {item.metadata.name} Does Not Contain Resource {resource}" )
                         count = count + 1
                 if require_restart == "false":
+                    DEPLOYMENT_FLAG = "IGNORED"
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, REQUIRE_RESTART: %s" % ("DEPLOYMENT", item.metadata.name, namespace, "FALSE"))
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("DEPLOYMENT", item.metadata.name, namespace, "IGNORED"))
                     
@@ -87,6 +88,7 @@ class RestartLogic():
                         #print (f"STATEFULSET {item.metadata.name} Does Not Contain Resource {resource}" )
                         count = count + 1
                 if require_restart == "false":
+                    STATEFULSET_FLAG = "IGNORED"
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, REQUIRE_RESTART: %s" % ("STATEFULSET", item.metadata.name, namespace, "FALSE"))
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("STATEFULSET", item.metadata.name, namespace, "IGNORED"))
             except Exception as e:
@@ -117,6 +119,7 @@ class RestartLogic():
                         #print (f"DAEMONSET {item.metadata.name} Does Not Contain Resource {resource}" )
                         count = count + 1
                 if require_restart == "false":
+                    DAEMONSET_FLAG = "IGNORED"
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, REQUIRE_RESTART: %s" % ("DAEMONSET", item.metadata.name, namespace, "FALSE"))
                     print("RESOURCE: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("DAEMONSET", item.metadata.name, namespace, "IGNORED"))
             except Exception as e:
@@ -134,6 +137,10 @@ class RestartLogic():
             
             elif DEPLOYMENT_FLAG == "True" or STATEFULSET_FLAG == "True" or DAEMONSET_FLAG == "True":
                print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
+            
+            elif DEPLOYMENT_FLAG == "IGNORED" or STATEFULSET_FLAG == "IGNORED" or DAEMONSET_FLAG == "IGNORED":
+               print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
+                        
             else:
                 print ("Something Went Wrong")
                 
