@@ -20,7 +20,7 @@ In contrast to the existing solution that I found, my preference led me to devel
 
 
 
-**Key Features:**
+### Key Features:
 
 **Automated Restart of Workloads:**
 
@@ -47,7 +47,7 @@ We leverage a Jenkins job to facilitate the creation, updating, and deletion of 
 ![](diagram.png)
 
 
-**How To Deploy:**
+### How To Deploy:
 
 kubectl create ns watcher
 
