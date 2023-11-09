@@ -12,11 +12,6 @@ This controller has the following features.
 1. This will give information about sealed secret updates in the cluster if you are using sealed secrets in your cluster.
 
 
-
-
-Title: Automating Kubernetes Workloads: The Almosafer Controller
-
-
 At **Almosafer**, our commitment to innovation drives us to explore and implement cutting-edge solutions to streamline operations. Our infrastructure is a sophisticated amalgamation of various tools, comprising a mix of open source, paid, and custom-built solutions. This diverse toolkit empowers us to meet the unique challenges of our industry while fostering adaptability and scalability.
 
 In the realm of Kubernetes orchestration, we encountered a small challenge. To address this, we developed a custom controller, to watch and respond to changes in configmaps and secrets across a Kubernetes cluster.
