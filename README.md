@@ -55,16 +55,16 @@ We leverage a Jenkins job to facilitate the creation, updating, and deletion of 
 
 |**Key** |**Description**|**Defaut**|
 | :- | :- | :- |
-|REDIS\_HOST|Redis Host|“redis-stack-0.redis-service.watcher.svc.cluster.local”|
-|REDIS\_PORT|Redis port to connect|“6379”|
-|REDIS\_SOCKET\_TIMEOUT|Specify connection timeout In seconds.|“5”|
-|LOCK\_EXPIRATION\_TIME|How long the key will be locked in redis. This will prevent another replica from processing the event. Key will be unlocked after processing by the controller at the end.|“300”|
-|DB|Database number of redis.|“0”|
+|REDIS\_HOST|Redis Host|"redis-stack-0.redis-service.watcher.svc.cluster.local"|
+|REDIS\_PORT|Redis port to connect|"6379"|
+|REDIS\_SOCKET\_TIMEOUT|Specify connection timeout In seconds.|"5"|
+|LOCK\_EXPIRATION\_TIME|How long the key will be locked in redis. This will prevent another replica from processing the event. Key will be unlocked after processing by the controller at the end.|"300"|
+|DB|Database number of redis.|"0"|
 |IGNORE\_CONFIGMAP\_NAMESPACES|Namespaces to ignored for configmaps.|"ingress-aws-lb-controller,istio-system,karpenter,kube-system,kubesphere-system"|
 |IGNORE\_SECRET\_NAMESPACES|Namespaces to ignored for secrets.|"ingress-aws-lb-controller,istio-system,karpenter,kube-system,kubesphere-system"|
 |ANNOTATION|Annotation that should apply to deployments, statefulset or daemonset to exclude from restart.|"require-restart"|
-|PRINT\_TIME|Print time in seconds for the function that will print the namespace names that are ignored. |“100”|
-|LOCAL\_CONFIG|In cluster config or local kubeconfig file|“False|
-|USERNAME|Username to connect to redis|“”|
-|PASSWORD|Password to connect to redis|“”|
+|PRINT\_TIME|Print time in seconds for the function that will print the namespace names that are ignored. |"100"|
+|LOCAL\_CONFIG|In cluster config or local kubeconfig file|"False"|
+|USERNAME|Username to connect to redis|""|
+|PASSWORD|Password to connect to redis|""|
 
