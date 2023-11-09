@@ -64,7 +64,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: REDIS_HOST
-              value: "tajawal-dev-cms-core.hnk4p0.ng.0001.euw1.cache.amazonaws.com"
+              value: "redis-stack-0.redis-service.watcher.svc.cluster.local"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_SOCKET_TIMEOUT
