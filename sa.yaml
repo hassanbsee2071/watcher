@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: controller
+  namespace: activity
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-secret-configmap-manager
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["list", "get", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets"]
+    verbs: ["list", "get", "watch", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["configmaps", "secrets", "customresourcetypes"]
+    verbs: ["list", "get", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list", "get", "watch", "delete"]
+  - apiGroups: ["bitnami.com"]
+    resources: ["sealedsecrets"]
+    verbs: ["list", "get", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-secret-configmap-manager-binding
+subjects:
+- kind: ServiceAccount
+  name: controller  
+  namespace: activity 
+roleRef:
+  kind: ClusterRole
+  name: cluster-secret-configmap-manager 
+  apiGroup: rbac.authorization.k8s.io
