@@ -1,16 +1,4 @@
 # watcher
-At **Almosafer** we always try to automate things and to solve complex problems using a combination of open source, paid and custom built solutions.
-
-We have encountered a situation where we need a controller that can watch all configmaps, secrets in a cluster and when they update then all the deployments, statefulsets and daemonsets consuming this configmap or secret automatically restart. 
-
-This controller has the following features.
-
-1. You can deploy multiple replicas of this controller as it is using distributed locking using redis. One event is processed by one replica. Events cannot be duplicated. 
-1. You can pass namespace names as environment if you want to ignore  that namespace to be watched for configmap.
-1. You can pass namespace names as environment if you want to ignore  that namespace to be watched for secrets.
-1. You can annotate any deployment, statefulset or demonset if you do not want it to be restarted. 
-1. This will give information about sealed secret updates in the cluster if you are using sealed secrets in your cluster.
-
 
 At **Almosafer**, our commitment to innovation drives us to explore and implement cutting-edge solutions to streamline operations. Our infrastructure is a sophisticated amalgamation of various tools, comprising a mix of open source, paid, and custom-built solutions. This diverse toolkit empowers us to meet the unique challenges of our industry while fostering adaptability and scalability.
 
