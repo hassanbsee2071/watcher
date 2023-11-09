@@ -43,13 +43,3 @@ class RedisConnector:
             if not delete_lock:
                 raise HTTPException(status_code=409, detail="Lock Not deleted")
             
-    # def redis_connectivity_checker(self):
-    #     while True:
-    #         try:
-    #             redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, socket_timeout=REDIS_SOCKET_TIMEOUT, username=USERNAME, password=PASSWORD, db=DB, decode_responses=True)
-    #             connection = redis_client.ping()
-    #             #print(f"Connection to redis {REDIS_HOST}:{REDIS_PORT} on DB {DB} successfully established.")
-    #             time.sleep(100)
-    #         except Exception as e:
-    #             print(f"Exception occurred. Cannot connect to Redis host {REDIS_HOST}:{REDIS_PORT}: {e}")
-    #             os.execv(sys.executable, ['python3'] + sys.argv)

@@ -9,12 +9,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-# #config.load_kube_config()
-# config.load_incluster_config()
-# try:
-#     config.load_kube_config()
-# except:
-#     config.load_incluster_config()
+
 
 LOCAL_CONFIG = os.getenv("LOCAL_CONFIG")
 
@@ -54,7 +49,7 @@ class RestartLogic():
                         deployment=item.metadata.name
                         restart_resources.restart_deployment(k8s_resources, deployment, namespace,resource)
                     elif not re.search(resource, str(item)):
-                        #print (f"DEPLOYMENT {item.metadata.name} Does Not Contain Resource {resource}" )
+                    
                         count = count + 1
                 if require_restart == "false":
                     DEPLOYMENT_FLAG = "IGNORED"
@@ -66,7 +61,7 @@ class RestartLogic():
                 print("Could Not Find Annotations......")
         if count == total_item:
             print (f"Resource {resource} Does Not Exist In Any Deployment In {namespace} Namespace")
-            #redis_connector.unlock_resource(resource)
+
             DEPLOYMENT_FLAG = "False"
 
     def statefulset_logic(self, all_statefulset, resource, namespace):
@@ -85,7 +80,7 @@ class RestartLogic():
                         stateful = item.metadata.name
                         restart_resources.restart_statefulset(k8s_resources, stateful, namespace,resource)
                     elif not re.search(resource, str(item)):
-                        #print (f"STATEFULSET {item.metadata.name} Does Not Contain Resource {resource}" )
+        
                         count = count + 1
                 if require_restart == "false":
                     STATEFULSET_FLAG = "IGNORED"
@@ -96,7 +91,7 @@ class RestartLogic():
                 print("Could Not Find Annotaions......")
         if count == total_item:
             print (f"Resource {resource} Does Not Exist In Any StateFulset In {namespace} Namespace")
-            #redis_connector.unlock_resource(resource)
+
             STATEFULSET_FLAG = "False"
     
     def daemonset_logic(self, all_daemonset, resource, namespace):
@@ -116,7 +111,7 @@ class RestartLogic():
                         daemonset = item.metadata.name
                         restart_resources.restart_daemonset(k8s_resources, daemonset, namespace,resource)
                     elif not re.search(resource, str(item)):
-                        #print (f"DAEMONSET {item.metadata.name} Does Not Contain Resource {resource}" )
+                    
                         count = count + 1
                 if require_restart == "false":
                     DAEMONSET_FLAG = "IGNORED"
@@ -130,7 +125,7 @@ class RestartLogic():
             DAEMONSET_FLAG = "False"
 
     def resource_unlocking(self,resource):
-            #if DEPLOYMENT_FLAG and STATEFULSET_FLAG and DAEMONSET_FLAG == False:
+       
             if DEPLOYMENT_FLAG == "False" and STATEFULSET_FLAG == "False" and DAEMONSET_FLAG == "False":
               print("DEPLOYMENT_FLAG: %s, STATEFULSET_FLAG: %s, DAEMONSET_FLAG: %s" % (DEPLOYMENT_FLAG, STATEFULSET_FLAG, DAEMONSET_FLAG))
               redis_connector.unlock_resource(resource)

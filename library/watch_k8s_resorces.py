@@ -11,12 +11,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-# #config.load_kube_config()
-# config.load_incluster_config()
-# # try:
-# #  config.load_kube_config()
-# # except:
-# #  config.load_incluster_config()
+
 LOCAL_CONFIG = os.getenv("LOCAL_CONFIG")
 if LOCAL_CONFIG == "True":
     config.load_kube_config()
@@ -49,10 +44,7 @@ class WatchResources:
             for event in w.stream(v1.list_config_map_for_all_namespaces):
                 if event["type"] == "MODIFIED":
                     if event['object'].metadata.namespace in IGNORE_CONFIGMAP_NAMESPACES:
-                        #print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("CONFIGMAP", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
                         pass
-                        # time.sleep(2)
-                        # raise Exception("Oh oh, this script just died")
                     if event['object'].metadata.namespace not in IGNORE_CONFIGMAP_NAMESPACES:
                         print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("CONFIGMAP", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "PROCESSING"))
                         namespace = event['object'].metadata.namespace
@@ -76,62 +68,6 @@ class WatchResources:
             time.sleep(1) 
             os.execv(sys.executable, ['python3'] + sys.argv)
 
-### CHAT ####
-    # def watch_configmap(self,resource_version):
-
-    #     try:
-    #         w = watch.Watch()
-    #         print("Started Listening For Configmaps...")
-
-    #         for event in w.stream(v1.list_config_map_for_all_namespaces, resource_version=resource_version):
-    #             if event["type"] == "MODIFIED":
-    #                 if event['object'].metadata.namespace in IGNORE_CONFIGMAP_NAMESPACES:
-    #                     pass
-    #                 if event['object'].metadata.namespace not in IGNORE_CONFIGMAP_NAMESPACES:
-    #                     print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % (
-    #                         "CONFIGMAP", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "PROCESSING"))
-    #                     namespace = event['object'].metadata.namespace
-    #                     configmap = event['object'].metadata.name
-    #                     kind = event['object'].kind
-    #                     try:
-    #                         redis_connector.lock_resource(configmap)
-    #                         deployments = k8s_resources.list_namespaced_deployment(namespace=namespace)
-    #                         statefulset = k8s_resources.list_namespaced_stateful_set(namespace=namespace)
-    #                         daemonset = k8s_resources.list_namespaced_daemon_set(namespace=namespace)
-    #                         restart_logic.deployment_logic(deployments, configmap, namespace)
-    #                         restart_logic.statefulset_logic(statefulset, configmap, namespace)
-    #                         restart_logic.daemonset_logic(daemonset, configmap, namespace)
-    #                         restart_logic.resource_unlocking(configmap)
-    #                     except ApiException as e:
-    #                         if "Expired: too old resource version" in str(e):
-    #                             # Handle the error by updating the resource version to a more recent value
-    #                             #last_processed_resource_version = v1.list_config_map_for_all_namespaces().metadata.resource_version
-    #                             resource_version = event['object'].metadata.resource_version
-    #                             print ("Resource Is:",resource_version)
-    #                             self.watch_configmap(resource_version)
-    #                         else:
-    #                             print(f"Exception caught outside the function: {e}")
-
-    #     except Exception as e:
-    #         print(f"Exception occurred: {e}")
-    #         time.sleep(1)
-    #         os.execv(sys.executable, ['python3'] + sys.argv)
-
-
-    # def list_pods(self, resource_version=None):
-    #     w = watch.Watch()
-    #     print('start watch from resource version: ', str(resource_version))
-    #     try: 
-    #         for i in  w.stream(v1.list_config_map_for_all_namespaces, resource_version=resource_version, timeout_seconds=2):
-    #             print(i['object'].metadata.resource_version)
-    #             last_resource_version = i['object'].metadata.resource_version
-    #     except ApiException as e: 
-    #         if e.status == 410: # Resource too old
-    #             return self.list_pods(resource_version=None)
-    #         else:
-    #             raise
-
-    #     return last_resource_version
 
     def watch_secrets(self):
         try:
@@ -141,7 +77,6 @@ class WatchResources:
             for event in w.stream(v1.list_secret_for_all_namespaces):
                 if event["type"] == "MODIFIED":
                     if event['object'].metadata.namespace in IGNORE_SECRET_NAMESPACES:
-                        #print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "IGNORED"))
                         pass
                     if event['object'].metadata.namespace not in IGNORE_SECRET_NAMESPACES:
                         print("RESOURCE: %s, EVENT: %s, NAME: %s, NAMESPACE: %s, STATUS: %s" % ("SECRET", event['type'], event['object'].metadata.name, event['object'].metadata.namespace, "PROCESSING"))
