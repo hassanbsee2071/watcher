@@ -46,7 +46,7 @@ We leverage a Jenkins job to facilitate the creation, updating, and deletion of 
 
 ![](Aspose.Words.8038039b-4ed1-405d-9551-1c8d5fa9a1d3.001.png)
 
-![](image.png)
+![](diagram.png)
 
 |**Key** |**Description**|**Defaut**|
 | :- | :- | :- |
